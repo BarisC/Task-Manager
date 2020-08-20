@@ -1,0 +1,43 @@
+name: taskmanager
+description: A new Flutter project.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^0.1.2
+  carousel_slider: ^2.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+  fonts:
+  - family: Caslon
+    fonts:
+    - asset: assets/fonts/Caslon.ttf
+  - family: AvenirBold
+    fonts:
+    - asset: assets/fonts/AvenirBold.otf
+  - family: SultanNahia
+    fonts:
+    - asset: assets/fonts/SultanNahia.ttf
+  - family: Avenir
+    fonts:
+    - asset: assets/fonts/AvenirNextLTPro-Regular.otf
+
+
+  assets:
+  - assets/images/
+
+  
