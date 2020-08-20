@@ -12,6 +12,6 @@
 *An android emulator or an android device is required to test this project.*
 
 ## Authors
- - BARIŞCAN ÇORUH
+ - **BARIŞCAN ÇORUH**
 
 
