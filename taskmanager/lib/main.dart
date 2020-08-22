@@ -67,39 +67,42 @@ class _IntroPState extends State<IntroP> {
       children: <Widget>[
         Container(
           width: MediaQuery.of(context).size.width,
-          height: 50,
+          height: 90,
           child: Stack(
             children: <Widget>[
               Positioned(
-                  left: 24,
-                  top: 20,
-                  child: Text(
-                    "My Task Manager",
-                    style: TextStyle(fontFamily: "AvenirBold", fontSize: 16),
-                  )),
-              Positioned(
-                  right: 24,
-                  top: 20,
-                  child: Text(
-                    widget.index == 1 ? "DONE" : "SKIP",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: textColor,
-                        fontFamily: "SultanNahia"),
-                  ))
+                top: 50,
+                left: MediaQuery.of(context).size.width / 4,
+                child: Text(
+                  "My Task Manager",
+                  style: TextStyle(
+                      fontFamily: "AvenirBold",
+                      fontSize: 25,
+                      color: Colors.lightGreen),
+                ),
+              ),
+              if (widget.index ==
+                  0) //İlk sayfada swap iconu kullanmak için if else yapısı
+                swapPage(),
             ],
           ),
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          margin: EdgeInsets.only(top: 50),
+          margin: EdgeInsets.only(top: 1),
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: <Widget>[
-                Image.asset(
-                  imagePath[widget.index],
-                  fit: BoxFit.fitWidth,
+                Container(
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10.0)),
+                  width: 300,
+                  height: 250,
+                  child: Image.asset(
+                    imagePath[widget.index],
+                    //fit: BoxFit.fitWidth,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 25),
@@ -116,12 +119,12 @@ class _IntroPState extends State<IntroP> {
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   padding: EdgeInsets.symmetric(
-                      horizontal: 40), //Horizontal olarak daraltıyor.
+                      horizontal: 35), //Horizontal olarak daraltıyor.
                   child: new Text(
                     description[widget.index],
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 15,
                       color: textColor,
                       fontFamily: "Caslon",
                     ),
@@ -132,13 +135,15 @@ class _IntroPState extends State<IntroP> {
           ),
         ),
         Container(
+          margin: EdgeInsets.symmetric(horizontal: 20),
           height: 50,
           child: Stack(
-            children: <Widget>[
-              DotsIndicators(widget.index),
-            ],
+            children: <Widget>[DotsIndicators(widget.index)],
           ),
-        )
+        ),
+        Container(
+          child: widget.index == 1 ? Basla() : null,
+        ),
       ],
     );
   }
@@ -164,10 +169,41 @@ class _DotsIndicatorsState extends State<DotsIndicators> {
           width: 10,
           height: 10,
           decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
               shape: BoxShape.circle,
-              color: index == widget.pageIndex ? Colors.black : Colors.red),
+              color: index == widget.pageIndex ? Colors.black : Colors.white),
         );
       },
+    );
+  }
+}
+
+class Basla extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new CupertinoButton(
+      child: Text(
+        "BAŞLA!",
+        style: TextStyle(color: Colors.white),
+      ),
+      onPressed: () {},
+      borderRadius: BorderRadius.circular(10),
+      color: Colors.grey,
+    );
+  }
+}
+
+class swapPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 20,
+      top: 50,
+      child: Icon(
+        Icons.arrow_forward,
+        color: Colors.grey,
+        size: 24.0,
+      ),
     );
   }
 }
