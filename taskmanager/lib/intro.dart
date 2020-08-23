@@ -125,7 +125,7 @@ class _IntroPState extends State<IntroP> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
-                              color: textColor,
+                              color: Colors.white,
                               fontFamily: "Caslon",
                             ),
                           ),
