@@ -135,6 +135,7 @@ class _IntroPState extends State<IntroP> {
                   ),
                 ),
                 Container(
+                  height: 20,
                   child: Stack(
                     children: <Widget>[DotsIndicators(widget.index)],
                   ),
