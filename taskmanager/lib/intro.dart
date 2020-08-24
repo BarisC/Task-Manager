@@ -94,14 +94,11 @@ class _IntroPState extends State<IntroP> {
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: <Widget>[
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0)),
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 2,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
                           child: Image.asset(
                             imagePath[widget.index],
-                            //fit: BoxFit.fitWidth,
+                            fit: BoxFit.fitWidth,
                           ),
                         ),
                         Padding(

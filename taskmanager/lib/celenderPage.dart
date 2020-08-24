@@ -1,6 +1,3 @@
-import 'dart:ffi';
-import 'dart:js';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -15,11 +12,17 @@ class CelenderPage extends StatefulWidget {
 class _CelenderPageState extends State<CelenderPage> {
   CalendarController _controller;
   Map<DateTime, List<dynamic>> _events;
+  List<dynamic> _selectedEvents;
+  TextEditingController _eventController;
+  int currentIndex = 0;
+  int _selectedNaviBar = 0;
   @override
   void initState() {
     super.initState();
     _controller = CalendarController();
+    _eventController = TextEditingController();
     _events = {};
+    _selectedEvents = [];
   }
 
   Map<String, dynamic> encodeMap(Map<DateTime, dynamic> map) {
@@ -59,7 +62,9 @@ class _CelenderPageState extends State<CelenderPage> {
               calendarController: _controller,
               startingDayOfWeek: StartingDayOfWeek.monday,
               onDaySelected: (date, events) {
-                print(date.toIso8601String());
+                setState(() {
+                  _selectedEvents = events;
+                });
               },
               builders: CalendarBuilders(
                 selectedDayBuilder: (context, date, events) => Container(
@@ -88,16 +93,19 @@ class _CelenderPageState extends State<CelenderPage> {
                 ),
               ),
             ),
+            ..._selectedEvents.map((event) => ListTile(
+                  title: Text(event),
+                )),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: _showAddDialog,
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        iconSize: 35,
+        iconSize: 25,
         fixedColor: Colors.black,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -107,44 +115,81 @@ class _CelenderPageState extends State<CelenderPage> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
+            icon: Icon(Icons.add),
             title: SizedBox(
               height: 0,
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_box),
-            title: SizedBox(
-              height: 0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite),
-            title: SizedBox(
-              height: 0,
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
+            icon: Icon(Icons.access_alarm),
             title: SizedBox(
               height: 0,
             ),
           ),
         ],
+        currentIndex: _selectedNaviBar,
+        onTap: _onItemTapped,
       ),
     );
   }
+
+  _showAddDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: TextField(
+          autofocus: true,
+          decoration: new InputDecoration(
+            labelText: 'Etkinlik Giriniz',
+          ),
+          controller: _eventController,
+        ),
+        actions: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.blue,
+            ),
+            child: FlatButton(
+              child: Text(
+                "Kaydet",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onPressed: () {},
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _onItemTapped(int index2) {
+    if (currentIndex == 1) {
+      if (_eventController.text.isEmpty) return;
+      setState(() {
+        if (_events[_controller.selectedDay] != null) {
+          _events[_controller.selectedDay].add(_eventController.text);
+        } else {
+          _events[_controller.selectedDay] = [_eventController.text];
+        }
+        _eventController.clear();
+        Navigator.pop(context);
+      });
+    } else {
+      alerDialogScreen(context);
+    }
+  }
 }
 
-_showAddDialog() {
+void alerDialogScreen(BuildContext context) {
+  var alertDialog = CupertinoAlertDialog(
+    content: Text("Özellik Yakında Kullanıma Sunulacaktır."),
+  );
   showDialog(
-      builder: (context) => AlertDialog(
-            content: TextField(),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Kaydedildi."),
-                onPressed: () {},
-              )
-            ],
-          ));
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
+      });
 }
