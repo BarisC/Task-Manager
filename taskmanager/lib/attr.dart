@@ -8,9 +8,8 @@ List<String> imagePath = [
   "assets/images/1.png",
 ];
 
-List<String> title = ["Hosgeldiniz", "Ara", "Hazır , ayarla .."];
+List<String> title = ["Hosgeldin", "Ekle", "Hazır , ayarla .."];
 List<String> description = [
   "My Task Manager kisisel ajandanızı ayrtıntılı olarak planlayın ve kullanın.",
-  "Tüm Kontrol Sende",
-  "Planlı ve istikrarlı ajanda",
+  "Etkinliklerini ve planlarını kisisel takvimine ekleyerek her zaman güncel kal!",
 ];

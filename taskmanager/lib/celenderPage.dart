@@ -128,7 +128,6 @@ class _CelenderPageState extends State<CelenderPage> {
           ),
         ],
         currentIndex: _selectedNaviBar,
-        onTap: _onItemTapped,
       ),
     );
   }
@@ -157,7 +156,18 @@ class _CelenderPageState extends State<CelenderPage> {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (_eventController.text.isEmpty) return;
+                setState(() {
+                  if (_events[_controller.selectedDay] != null) {
+                    _events[_controller.selectedDay].add(_eventController.text);
+                  } else {
+                    _events[_controller.selectedDay] = [_eventController.text];
+                  }
+                  _eventController.clear();
+                  Navigator.pop(context);
+                });
+              },
             ),
           )
         ],
@@ -166,20 +176,16 @@ class _CelenderPageState extends State<CelenderPage> {
   }
 
   void _onItemTapped(int index2) {
-    if (currentIndex == 1) {
-      if (_eventController.text.isEmpty) return;
-      setState(() {
-        if (_events[_controller.selectedDay] != null) {
-          _events[_controller.selectedDay].add(_eventController.text);
-        } else {
-          _events[_controller.selectedDay] = [_eventController.text];
-        }
-        _eventController.clear();
-        Navigator.pop(context);
-      });
-    } else {
-      alerDialogScreen(context);
-    }
+    if (_eventController.text.isEmpty) return;
+    setState(() {
+      if (_events[_controller.selectedDay] != null) {
+        _events[_controller.selectedDay].add(_eventController.text);
+      } else {
+        _events[_controller.selectedDay] = [_eventController.text];
+      }
+      _eventController.clear();
+      Navigator.pop(context);
+    });
   }
 }
 

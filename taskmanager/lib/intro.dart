@@ -70,9 +70,7 @@ class _IntroPState extends State<IntroP> {
                   height: 90,
                   child: Stack(
                     children: <Widget>[
-                      Positioned(
-                        top: 50,
-                        left: MediaQuery.of(context).size.width / 4,
+                      Center(
                         child: Text(
                           "My Task Manager",
                           style: TextStyle(
@@ -108,7 +106,7 @@ class _IntroPState extends State<IntroP> {
                               title[widget.index],
                               style: TextStyle(
                                   fontSize: 30,
-                                  color: Colors.black,
+                                  color: Colors.lightGreen,
                                   fontFamily: "Caslon"),
                             ),
                           ),
